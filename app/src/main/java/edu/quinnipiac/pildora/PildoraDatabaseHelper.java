@@ -5,7 +5,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
+/**
+ * PildoraDatabaseHelper
+ * Using SQLiteOpenHelper, this class uses OOP features to store prescriptions and their attributes into a
+ * database.
+ */
 
 public class PildoraDatabaseHelper extends SQLiteOpenHelper {
 
