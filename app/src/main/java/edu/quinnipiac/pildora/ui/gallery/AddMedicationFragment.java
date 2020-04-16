@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import edu.quinnipiac.pildora.R;
 
-public class GalleryFragment extends Fragment {
+public class AddMedicationFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
 

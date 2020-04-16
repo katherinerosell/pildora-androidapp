@@ -31,14 +31,15 @@ public class PildoraDatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion){
-        if(oldVersion < 1){ //first time loading in db
+        if(oldVersion < 1){//on first loading in
             db.execSQL("CREATE TABLE MEDS (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + "NAME TEXT, " + "DOSAGE DOUBLE, " + "QTY INTEGER, " + "TIMETAKEN TEXT);");
             insertPrescription(db, "Medicine A", 0.50, 2, "Taken every morning.");
             insertPrescription(db, "Medicine B", 0.20, 1, "Taken every 4 hours for a 3 days.");
+            insertPrescription(db, "Medicine C", 0.30, 2, "Take x2 a day for 3 weeks.");
         }
-        if(oldVersion < 2){
-            db.execSQL("ALTER TABLE MEDS ADD COLUMN STAR NUMERIC");
+        else if(oldVersion == 2){
+            insertPrescription(db, "Medicine D", 0.40, 1, "Take 1 a day for 3 weeks.");
         }
     }
 

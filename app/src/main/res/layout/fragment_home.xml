@@ -7,10 +7,24 @@
     tools:context=".ui.home.HomeFragment"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/button_addMed"
+        android:text="Add Medication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        />
+
     <ListView
         android:id="@+id/list_prescriptions"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp" />
+        android:orientation="vertical"
+        android:paddingRight="30dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="30dp"
+        />
+
+
 
 </LinearLayout>
