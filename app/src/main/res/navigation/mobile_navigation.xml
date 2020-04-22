@@ -15,6 +15,7 @@
             android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
             app:destination="@id/nav_home_second" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_home_second"
         android:name="edu.quinnipiac.pildora.ui.home.HomeSecondFragment"
@@ -31,13 +32,8 @@
 
     <fragment
         android:id="@+id/nav_editmeds"
-        android:name="edu.quinnipiac.pildora.ui.gallery.AddMedicationFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:name="edu.quinnipiac.pildora.ui.AddMedicationFragment"
+        android:label="@string/menu_editAddPrescriptions"
+        tools:layout="@layout/fragment_edit_add_meds" />
 
-    <fragment
-        android:id="@+id/nav_viewmeds"
-        android:name="edu.quinnipiac.pildora.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
 </navigation>
