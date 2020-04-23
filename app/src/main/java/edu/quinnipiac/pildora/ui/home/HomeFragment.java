@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import edu.quinnipiac.pildora.PildoraDatabaseHelper;
 import edu.quinnipiac.pildora.R;
+import edu.quinnipiac.pildora.testclasses.AddPrescriptionsTest;
 import edu.quinnipiac.pildora.ui.AddMedicationFragment;
 
 public class HomeFragment extends Fragment {
@@ -26,6 +27,7 @@ public class HomeFragment extends Fragment {
     private SQLiteDatabase db;
     private Cursor cursor;
     private View _layout;
+    private static AddPrescriptionsTest testClass = new AddPrescriptionsTest();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -90,11 +92,15 @@ public class HomeFragment extends Fragment {
     }
 
     public void refresh() {
+        testClass.runTest();
+        //refresh the cursor to update list view, but it isn't really needed since onStart covers this
+        /**
         Cursor newCursor = db.query("MEDS", new String[]{"_id", "NAME", "DOSAGE", "QTY", "TIMETAKEN"}, null, null, null, null, null);
         ListView listMeds = (ListView) _layout.findViewById(R.id.list_prescriptions);
         CursorAdapter cursorAdapter = (CursorAdapter) listMeds.getAdapter();
         cursorAdapter.changeCursor(newCursor);
         cursor = newCursor;
+         **/
     }
 
 

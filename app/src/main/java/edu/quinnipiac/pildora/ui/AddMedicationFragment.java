@@ -27,6 +27,7 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
     private static EditText _qtyEditText;
     private static EditText _whenTakenEditText;
     private static Button _saveButton;//saves the prescription information
+    private static View _layout;
     //Prescription Object
     private static Prescription _prescription;
     private PildoraDatabaseHelper pildoraDBHelper;
@@ -35,48 +36,33 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState){
         final View layout = inflater.inflate(R.layout.fragment_edit_add_meds, container, false);
+        _layout = layout;//if I need the layout
         return inflater.inflate(R.layout.fragment_edit_add_meds, container, false);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        View view = getView();
-        if(view != null){
-            _saveButton = (Button) view.findViewById(R.id.button_savePrescription);
+        //View view = getView();
+        if(_layout != null){
+            _saveButton = (Button) _layout.findViewById(R.id.button_savePrescription);
             _saveButton.setOnClickListener(this);
             /**
              * BUG FIX - list view does not update to display medications. why? was it database related? NO
              * The bellow views were removed from the onCreateView function and moved to onStart. Unclear why this works?
              * - i have to check the lifecycle states again
              */
-            _nameEditText = (EditText) view.findViewById(R.id.edittext_name);
-            _dosageEditText = (EditText) view.findViewById(R.id.edittext_dosage);
-            _qtyEditText = (EditText) view.findViewById(R.id.edittext_qty);
-            _whenTakenEditText = (EditText) view.findViewById(R.id.edittext_whenTaken);
+            _nameEditText = (EditText) _layout.findViewById(R.id.edittext_name);
+            _dosageEditText = (EditText) _layout.findViewById(R.id.edittext_dosage);
+            _qtyEditText = (EditText) _layout.findViewById(R.id.edittext_qty);
+            _whenTakenEditText = (EditText) _layout.findViewById(R.id.edittext_whenTaken);
         }
     }
     @Override
     public void onClick(View v) {
         Log.d("------ ADD MED ------", "---------- Save Button ----------");
-        Toast didItWork = Toast.makeText(v.getContext(), "Clicked SAVE btn!", Toast.LENGTH_SHORT); didItWork.show();
+        Toast didItWork = Toast.makeText(v.getContext(), "New Prescription Added!", Toast.LENGTH_SHORT); didItWork.show();
         savePrescription();
-        /**
-        //save the prescription by adding it into the database
-        if(_nameEditText.getText().toString() == "" || _nameEditText.getText().toString() == " "){
-            didItWork = Toast.makeText(v.getContext(), "Do not leave any values blank!", Toast.LENGTH_SHORT); didItWork.show(); }
-        else if(_dosageEditText.getText().toString() == "" || _dosageEditText.getText().toString() == " "){
-            didItWork = Toast.makeText(v.getContext(), "Do not leave any values blank!", Toast.LENGTH_SHORT); didItWork.show();
-        }
-        else if(_qtyEditText.getText().toString() == "" || _qtyEditText.getText().toString() == " "){
-            didItWork = Toast.makeText(v.getContext(), "Do not leave any values blank!", Toast.LENGTH_SHORT); didItWork.show();
-        }
-        else if(_whenTakenEditText.getText().toString() == "" || _whenTakenEditText.getText().toString() == " "){
-            didItWork = Toast.makeText(v.getContext(), "Do not leave any values blank!", Toast.LENGTH_SHORT); didItWork.show();
-        }
-        else{ savePrescription(); }
-         **/
-
     }
 
     public void savePrescription(){
