@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import edu.quinnipiac.pildora.PildoraDatabaseHelper;
 import edu.quinnipiac.pildora.Prescription;
 import edu.quinnipiac.pildora.R;
+import edu.quinnipiac.pildora.testclasses.AddPrescriptionsTest;
 
 public class AddMedicationFragment extends Fragment implements View.OnClickListener {
 
@@ -27,41 +28,44 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
     private static EditText _qtyEditText;
     private static EditText _whenTakenEditText;
     private static Button _saveButton;//saves the prescription information
+
     private static View _layout;
     //Prescription Object
     private static Prescription _prescription;
-    private PildoraDatabaseHelper pildoraDBHelper;
-    private Cursor cursor;
+    //private PildoraDatabaseHelper pildoraDBHelper;
+    //private Cursor cursor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState){
         final View layout = inflater.inflate(R.layout.fragment_edit_add_meds, container, false);
-        _layout = layout;//if I need the layout
+        _layout = layout;//for some reason does not work after app is closed then opened? using getView in onStart is more reliable
         return inflater.inflate(R.layout.fragment_edit_add_meds, container, false);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        //View view = getView();
-        if(_layout != null){
-            _saveButton = (Button) _layout.findViewById(R.id.button_savePrescription);
+        View view = getView();
+        if(view != null){
+            _saveButton = (Button) view.findViewById(R.id.button_savePrescription);
             _saveButton.setOnClickListener(this);
             /**
              * BUG FIX - list view does not update to display medications. why? was it database related? NO
              * The bellow views were removed from the onCreateView function and moved to onStart. Unclear why this works?
              * - i have to check the lifecycle states again
              */
-            _nameEditText = (EditText) _layout.findViewById(R.id.edittext_name);
-            _dosageEditText = (EditText) _layout.findViewById(R.id.edittext_dosage);
-            _qtyEditText = (EditText) _layout.findViewById(R.id.edittext_qty);
-            _whenTakenEditText = (EditText) _layout.findViewById(R.id.edittext_whenTaken);
+            _nameEditText = (EditText) view.findViewById(R.id.edittext_name);
+            _dosageEditText = (EditText) view.findViewById(R.id.edittext_dosage);
+            _qtyEditText = (EditText) view.findViewById(R.id.edittext_qty);
+            _whenTakenEditText = (EditText) view.findViewById(R.id.edittext_whenTaken);
         }
     }
+
     @Override
     public void onClick(View v) {
         Log.d("------ ADD MED ------", "---------- Save Button ----------");
-        Toast didItWork = Toast.makeText(v.getContext(), "New Prescription Added!", Toast.LENGTH_SHORT); didItWork.show();
+        Toast saveToast = Toast.makeText(v.getContext(), "New Prescription Added! Check Home Screen.", Toast.LENGTH_SHORT);
+        saveToast.show();
         savePrescription();
     }
 
@@ -71,8 +75,8 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
         String qty = _qtyEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
         String whenTaken = _whenTakenEditText.getText().toString();
 
-        Prescription myPrescription = new Prescription(name, dosage, qty, whenTaken);
-        Log.d("", "PRESCRIPTION ENTERED: " + myPrescription.getName());
+        _prescription = new Prescription(name, dosage, qty, whenTaken);
+        Log.d("", "PRESCRIPTION ENTERED: " + _prescription.getName());
 
         ContentValues medVals = new ContentValues();
         medVals.put("NAME", name);

@@ -1,19 +1,16 @@
 package edu.quinnipiac.pildora.testclasses;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
-
 import edu.quinnipiac.pildora.PildoraDatabaseHelper;
 import edu.quinnipiac.pildora.Prescription;
 import edu.quinnipiac.pildora.R;
@@ -49,11 +46,26 @@ public class AddPrescriptionsTest extends Fragment {
         testDVal.put("QTY", prescriptionD.getQuantity());
         testDVal.put("TIMETAKEN", prescriptionD.getWhenToTake());
 
-        SQLiteOpenHelper pildoraDBHelper = new PildoraDatabaseHelper();
+        ContentValues testEVal = new ContentValues();
+        testEVal.put("NAME", prescriptionE.getName());
+        testEVal.put("DOSAGE", prescriptionE.getDosage());
+        testEVal.put("QTY", prescriptionE.getQuantity());
+        testEVal.put("TIMETAKEN", prescriptionE.getWhenToTake());
+
+        ContentValues testGVal = new ContentValues();
+        testGVal.put("NAME", prescriptionG.getName());
+        testGVal.put("DOSAGE", prescriptionG.getDosage());
+        testGVal.put("QTY", prescriptionG.getQuantity());
+        testGVal.put("TIMETAKEN", prescriptionG.getWhenToTake());
+
+        SQLiteOpenHelper pildoraDBHelper = new PildoraDatabaseHelper(this.getContext());
 
         try{
             SQLiteDatabase db = pildoraDBHelper.getWritableDatabase();
+            //insert 3 new content values of the prescription objects
             db.insert("MEDS", null, testDVal);
+            db.insert("MEDS", null, testEVal);
+            db.insert("MEDS", null, testGVal);
             pildoraDBHelper.onUpgrade(db, db.getVersion(), 3);
             db.close();
         } catch (SQLiteException e){
