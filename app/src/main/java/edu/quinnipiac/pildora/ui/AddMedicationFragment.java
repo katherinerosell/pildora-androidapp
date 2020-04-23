@@ -1,7 +1,6 @@
 package edu.quinnipiac.pildora.ui;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -28,6 +27,9 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
     private static EditText _qtyEditText;
     private static EditText _whenTakenEditText;
     private static Button _saveButton;//saves the prescription information
+    //Test
+    private static Button _testButton;
+    private static AddPrescriptionsTest testClass;
 
     private static View _layout;
     //Prescription Object
@@ -39,6 +41,10 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState){
         final View layout = inflater.inflate(R.layout.fragment_edit_add_meds, container, false);
         _layout = layout;//for some reason does not work after app is closed then opened? using getView in onStart is more reliable
+        //Create and add a database and reference to MEDS db, pass to test
+        SQLiteOpenHelper pildoraDBHelper = new PildoraDatabaseHelper(getLayoutInflater().getContext());
+        SQLiteDatabase mydb = pildoraDBHelper.getWritableDatabase();
+        testClass = new AddPrescriptionsTest(mydb);
         return inflater.inflate(R.layout.fragment_edit_add_meds, container, false);
     }
 
@@ -58,8 +64,22 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
             _dosageEditText = (EditText) view.findViewById(R.id.edittext_dosage);
             _qtyEditText = (EditText) view.findViewById(R.id.edittext_qty);
             _whenTakenEditText = (EditText) view.findViewById(R.id.edittext_whenTaken);
+            _testButton = (Button) view.findViewById(R.id.button_test);
+            _testButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doTest();
+                }
+            });
         }
     }
+
+    public void doTest(){
+        Toast doTestToast = Toast.makeText(getView().getContext(), "Test Run!", Toast.LENGTH_LONG);
+        doTestToast.show();
+        testClass.runTest();
+    }
+
 
     @Override
     public void onClick(View v) {

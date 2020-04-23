@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,20 +23,24 @@ public class AddPrescriptionsTest extends Fragment {
     private static Prescription prescriptionE;
     private static Prescription prescriptionG;
     //Database entities needed
-    private static Prescription _prescription;
-    private PildoraDatabaseHelper pildoraDBHelper;
-    private Cursor cursor;
+    //private static Prescription _prescription;
+    private static SQLiteDatabase db;
+    //private PildoraDatabaseHelper pildoraDBHelper;
+    //private Cursor cursor;
+    private static TestPrescription testPrescription;
 
-    public AddPrescriptionsTest(){
+    public AddPrescriptionsTest(SQLiteDatabase theDB){
         prescriptionD = new Prescription("MedicationD", "2.0", "2", "Take 2 every night for 4 months");
         prescriptionE = new Prescription("MedicationE", "2.0", "2", "Take 2 every night for 4 months");
         prescriptionG = new Prescription("MedicationG", "2.0", "2", "Take 2 every night for 4 months");
+        db = theDB;
+        testPrescription = new TestPrescription();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState){
-        final View layout = inflater.inflate(R.layout.blank_fragment, container, false);
-        return inflater.inflate(R.layout.blank_fragment, container, false);
+        final View layout = inflater.inflate(R.layout.fragment_edit_add_meds, container, false);
+        return inflater.inflate(R.layout.fragment_edit_add_meds, container, false);
     }
 
     public void runTest() {
@@ -61,7 +66,7 @@ public class AddPrescriptionsTest extends Fragment {
         SQLiteOpenHelper pildoraDBHelper = new PildoraDatabaseHelper(this.getContext());
 
         try{
-            SQLiteDatabase db = pildoraDBHelper.getWritableDatabase();
+            //db = pildoraDBHelper.getWritableDatabase();
             //insert 3 new content values of the prescription objects
             db.insert("MEDS", null, testDVal);
             db.insert("MEDS", null, testEVal);
@@ -73,8 +78,12 @@ public class AddPrescriptionsTest extends Fragment {
             toast.show();
         }
 
+        Log.d("---------", "----------   Print Added Prescriptions + Attributes   --------");
+        Log.d(" Prescription D:  ", "Name: " + prescriptionD.getName()+ " Dosage: " + prescriptionD.getDosage()+ " Quantity: " + prescriptionD.getQuantity()+ " When Taken:" + prescriptionD.getWhenToTake());
+        Log.d(" Prescription E:  ", "Name: " + prescriptionE.getName()+ " Dosage: " + prescriptionE.getDosage()+ " Quantity: " + prescriptionE.getQuantity()+ " When Taken:" + prescriptionE.getWhenToTake());
+        Log.d(" Prescription G:  ", "Name: " + prescriptionG.getName()+ " Dosage: " + prescriptionG.getDosage()+ " Quantity: " + prescriptionG.getQuantity()+ " When Taken:" + prescriptionG.getWhenToTake());
+        testPrescription.runPrescriptionTest();
     }
-
 
 
 }
