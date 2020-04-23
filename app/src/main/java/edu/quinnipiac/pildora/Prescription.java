@@ -3,13 +3,13 @@ package edu.quinnipiac.pildora;
 public class Prescription {
 
     private String _name;
-    private int _dosage;
-    private int _qty;//the quantity of pills/meds to be ingested
+    private String _dosage;
+    private String _qty;//the quantity of pills/meds to be ingested
     private String _whenToTake;//when and how much of the medication to take
 
     public Prescription(){ }
 
-    public Prescription(String name, int dosage, int qty, String whenToTake){
+    public Prescription(String name, String dosage, String qty, String whenToTake){
         _name = name;
         _dosage = dosage;
         _qty = qty;
@@ -25,11 +25,11 @@ public class Prescription {
         return _name;
     }
 
-    public int getDosage(){
+    public String getDosage(){
         return _dosage;
     }
 
-    public int getQuantity(){
+    public String getQuantity(){
         return _qty;
     }
 

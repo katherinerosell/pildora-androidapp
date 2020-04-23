@@ -9,7 +9,7 @@
 
     <Button
         android:id="@+id/button_addMed"
-        android:text="Add Medication"
+        android:text="Refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
