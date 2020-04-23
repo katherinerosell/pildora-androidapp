@@ -16,6 +16,17 @@ import edu.quinnipiac.pildora.PildoraDatabaseHelper;
 import edu.quinnipiac.pildora.Prescription;
 import edu.quinnipiac.pildora.R;
 
+/**
+ * AddPrescriptionsTest
+ * Description: this unit test tests the HomeFragment and it's connection to the database.
+ * The HomeFragment should update its list view onStart (when home screen is loaded back in) which indicates
+ * that its database has been updated!
+ * If the list view displays the below prescriptions, the HomeFragment accesses and reads the database properly,
+ * and refreshes the cursor correctly.
+ * Author: Katherine Rosell
+ * Date: 4/23/2020
+ */
+
 public class AddPrescriptionsTest extends Fragment {
 
     //Prescriptions I will add

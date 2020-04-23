@@ -4,6 +4,18 @@ import android.util.Log;
 
 import edu.quinnipiac.pildora.Prescription;
 
+/**
+ * TestPrescriptions
+ * Description: this unit test just creates two Prescription objects and gives
+ * them unique values for their name, dosage, quantity and when to take.
+ * This test class is used to make sure the getter methods retrieve the respective data;
+ * so getName() should return the String name in the Prescription.
+ * The access to the database in AddMedicationFragment uses the getter methods of the prescription the user
+ * created to put values into a Content Values object.
+ * Author: Katherine Rosell
+ * Date: 4/23/2020
+ */
+
 public class TestPrescription {
 
     private static Prescription medB;

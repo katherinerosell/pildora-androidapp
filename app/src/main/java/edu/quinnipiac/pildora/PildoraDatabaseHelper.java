@@ -26,7 +26,7 @@ public class PildoraDatabaseHelper extends SQLiteOpenHelper {
         updateMyDatabase(db, 0, DB_VERSION);
     }
 
-    public void insertPrescription(SQLiteDatabase db, String name, String dosage, String quantityToTake, String whenToTake){
+    private void insertPrescription(SQLiteDatabase db, String name, String dosage, String quantityToTake, String whenToTake){
         ContentValues prescriptionVals = new ContentValues();
         prescriptionVals.put("NAME", name);
         prescriptionVals.put("DOSAGE", dosage);
