@@ -42,8 +42,8 @@ public class AddPrescriptionsTest extends Fragment {
 
     public AddPrescriptionsTest(SQLiteDatabase theDB){
         prescriptionD = new Prescription("MedicationD", "2.0", "2", "Take 2 every night for 4 months");
-        prescriptionE = new Prescription("MedicationE", "2.0", "2", "Take 2 every night for 4 months");
-        prescriptionG = new Prescription("MedicationG", "2.0", "2", "Take 2 every night for 4 months");
+        prescriptionE = new Prescription("MedicationE", "400", "1", "Take 1 every night with food for 4 weeks");
+        prescriptionG = new Prescription("MedicationG", "1000", "1", "Take 1 every day for a week");
         db = theDB;
         testPrescription = new TestPrescription();
     }

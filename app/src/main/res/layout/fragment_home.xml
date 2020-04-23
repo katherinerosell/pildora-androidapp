@@ -17,6 +17,16 @@
         android:layout_gravity="right"
         />
 
+    <TextView
+        android:id="@+id/text_hint"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="4dp"
+        android:text="No Prescriptions Added :( Click the menu at the TOP-LEFT to add a new one!"
+        android:textAlignment="center"
+        android:textSize="12dp" />
+
     <ListView
         android:id="@+id/list_prescriptions"
         android:layout_height="match_parent"

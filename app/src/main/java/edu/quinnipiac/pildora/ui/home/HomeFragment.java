@@ -15,6 +15,7 @@ import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import edu.quinnipiac.pildora.PildoraDatabaseHelper;
@@ -27,6 +28,7 @@ public class HomeFragment extends Fragment {
     private SQLiteDatabase db;
     private Cursor cursor;
     private View _layout;
+    private static TextView addNewHint;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -77,6 +79,11 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         Cursor newCursor = db.query("MEDS", new String[]{"_id", "NAME", "DOSAGE", "QTY", "TIMETAKEN"}, null, null, null, null, null);
+        //if the database is empty, meaning there is nothing in the first row, set the hint text to display the hint
+        addNewHint = getView().findViewById(R.id.text_hint);
+        if(cursor.moveToFirst()==true){addNewHint.setText("");}
+        else if(cursor.moveToFirst()==false){addNewHint.setText("No Prescriptions Added :( Click the menu at the TOP-LEFT to add a new one!");}
+        //update list view with new cursor; refreshing the cursor
         ListView listMeds = (ListView) _layout.findViewById(R.id.list_prescriptions);
         CursorAdapter cursorAdapter = (CursorAdapter) listMeds.getAdapter();
         cursorAdapter.changeCursor(newCursor);
