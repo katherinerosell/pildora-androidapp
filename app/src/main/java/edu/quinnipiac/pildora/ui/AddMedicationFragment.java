@@ -64,7 +64,7 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Log.d("------ ADD MED ------", "---------- Save Button ----------");
-        Toast saveToast = Toast.makeText(v.getContext(), "New Prescription Added! Check Home Screen.", Toast.LENGTH_SHORT);
+        Toast saveToast = Toast.makeText(v.getContext(), "New Prescription Added! Check Home Screen.", Toast.LENGTH_LONG);
         saveToast.show();
         savePrescription();
     }

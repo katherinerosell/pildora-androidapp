@@ -6,70 +6,70 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/name_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:text="Medication Name"
-        android:textSize="22dip"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/name_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:text="Medication Name"
+            android:textSize="22dip"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/item_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:text="Quantity to take: "
-        android:textSize="16dip"
-        app:layout_constraintStart_toEndOf="@+id/dosage_item"
-        app:layout_constraintTop_toBottomOf="@+id/name_item" />
+        <TextView
+            android:id="@+id/item_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:text="Quantity to take: "
+            android:textSize="16dip"
+            app:layout_constraintStart_toEndOf="@+id/dosage_item"
+            app:layout_constraintTop_toBottomOf="@+id/name_item" />
 
-    <TextView
-        android:id="@+id/qty_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="12dp"
-        android:text="quantity"
-        android:textSize="16dip"
-        app:layout_constraintStart_toEndOf="@+id/item_2"
-        app:layout_constraintTop_toBottomOf="@id/name_item" />
+        <TextView
+            android:id="@+id/qty_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="12dp"
+            android:text="quantity"
+            android:textSize="16dip"
+            app:layout_constraintStart_toEndOf="@+id/item_2"
+            app:layout_constraintTop_toBottomOf="@id/name_item" />
 
-    <TextView
-        android:id="@+id/item_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="6dp"
-        android:text="Dosage in mg: "
-        android:textSize="16dip"
-        app:layout_constraintEnd_toStartOf="@+id/dosage_item"
-        app:layout_constraintStart_toStartOf="@+id/name_item"
-        app:layout_constraintTop_toBottomOf="@+id/name_item" />
+        <TextView
+            android:id="@+id/item_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="6dp"
+            android:text="Dosage in mg: "
+            android:textSize="16dip"
+            app:layout_constraintEnd_toStartOf="@+id/dosage_item"
+            app:layout_constraintStart_toStartOf="@+id/name_item"
+            app:layout_constraintTop_toBottomOf="@+id/name_item" />
 
-    <TextView
-        android:id="@+id/dosage_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="dosage"
-        android:textSize="16dip"
-        app:layout_constraintEnd_toEndOf="@id/item_3"
-        app:layout_constraintStart_toEndOf="@+id/item_3"
-        app:layout_constraintTop_toBottomOf="@id/name_item" />
+        <TextView
+            android:id="@+id/dosage_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="dosage"
+            android:textSize="16dip"
+            app:layout_constraintEnd_toEndOf="@id/item_3"
+            app:layout_constraintStart_toEndOf="@+id/item_3"
+            app:layout_constraintTop_toBottomOf="@id/name_item" />
 
-    <TextView
-        android:id="@+id/whentotake_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Take 1 every 2 days"
-        android:textSize="20dip"
-        app:layout_constraintStart_toStartOf="@+id/item_3"
-        app:layout_constraintTop_toBottomOf="@+id/item_3" />
+        <TextView
+            android:id="@+id/whentotake_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Take 1 every 2 days"
+            android:textSize="20dip"
+            app:layout_constraintStart_toStartOf="@+id/item_3"
+            app:layout_constraintTop_toBottomOf="@+id/item_3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
