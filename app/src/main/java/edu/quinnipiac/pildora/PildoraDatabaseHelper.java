@@ -25,7 +25,7 @@ public class PildoraDatabaseHelper extends SQLiteOpenHelper {
         updateMyDatabase(db, 0, DB_VERSION);
     }
 
-    private void insertPrescription(SQLiteDatabase db, String name, double dosage, int quantityToTake, String whenToTake){
+    public void insertPrescription(SQLiteDatabase db, String name, double dosage, int quantityToTake, String whenToTake){
         ContentValues prescriptionVals = new ContentValues();
         prescriptionVals.put("NAME", name);
         prescriptionVals.put("DOSAGE", dosage);
@@ -43,7 +43,7 @@ public class PildoraDatabaseHelper extends SQLiteOpenHelper {
             insertPrescription(db, "Medicine C", 0.30, 2, "Take x2 a day for 3 weeks.");
         }
         else if(oldVersion == 2){
-            insertPrescription(db, "Medicine D", 0.40, 1, "Take 1 a day for 3 weeks.");
+            //insertPrescription(db, "Medicine D", 0.40, 1, "Take 1 a day for 3 weeks.");
         }
     }
 

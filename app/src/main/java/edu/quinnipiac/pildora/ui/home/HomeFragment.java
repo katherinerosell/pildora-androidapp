@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment {
         addMed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //addMedication();
+                //addMedication();//?
             }
         });
 
