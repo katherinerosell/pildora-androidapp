@@ -77,7 +77,7 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
     public void doTest(){
         Toast doTestToast = Toast.makeText(getView().getContext(), "Test Run!", Toast.LENGTH_LONG);
         doTestToast.show();
-        testClass.runTest();
+        //testClass.runTest();
     }
 
 
