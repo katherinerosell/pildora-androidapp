@@ -12,5 +12,9 @@
             android:id="@+id/nav_editmeds"
             android:icon="@drawable/pharmacy"
             android:title="@string/menu_editAddPrescriptions" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/help"
+            android:title="@string/action_help" />
     </group>
 </menu>
