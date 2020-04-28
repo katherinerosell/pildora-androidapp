@@ -63,12 +63,11 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            //getLayoutInflater().inflate(R.layout.a)
-            return true;//if player clicks settings - don't do anything atm
+            //navController.navigate(R.id.nav_settings);
+            return true;
         }
         if(id == R.id.action_help){
-            _navController.navigate(R.id.nav_help);
-            //getLayoutInflater().inflate(R.layout.fragment_help, view);
+            _navController.navigate(R.id.nav_help);//use nav controller to get to/display help fragment
             return true;
         }
         return super.onOptionsItemSelected(item);
