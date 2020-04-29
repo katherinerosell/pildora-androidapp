@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.List
     private AppBarConfiguration mAppBarConfiguration;
     private static NavController _navController;
     private static String _rowID;
-    private static HomeFragment homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.List
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         _navController = navController;
-        //Use HomeFragment's refresh() method to refresh its list view when items get deleted
-        homeFragment = new HomeFragment();
     }
 
     @Override
@@ -106,9 +103,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.List
             catch(SQLiteException err){
                 return false;
             }
-
         }
-
         protected void onPostExecute(Boolean success) {
             if(!success){
                 Toast toast = Toast.makeText(MainActivity.this, "Database Unavailable", Toast.LENGTH_LONG);
