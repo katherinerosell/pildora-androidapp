@@ -119,7 +119,7 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
 
         } else { //this is an empty database
             rowExists = false;
-            pildoraDBHelper.onUpgrade(db, 0, 2);
+            pildoraDBHelper.onUpgrade(db, 0, 3);
             String name = _nameEditText.getText().toString();
             String dosage = _dosageEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
             String qty = _qtyEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
