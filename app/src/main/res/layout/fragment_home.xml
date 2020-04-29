@@ -8,15 +8,36 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/text_header"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="4dp"
+        android:layout_marginTop="26dp"
+        android:text="List of My Prescriptions"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/text_deletehint"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="4dp"
+        android:text="Click on a prescription to automatically delete it!"
+        android:textAlignment="center"
+        android:textSize="14dp" />
+
+    <TextView
         android:id="@+id/text_hint"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="4dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="26dp"
         android:text="No Prescriptions Added :( Click the menu at the TOP-LEFT to add a new one!"
         android:textAlignment="center"
-        android:textSize="16dp" />
+        android:textSize="20dp" />
 
     <ListView
         android:id="@+id/list_prescriptions"

@@ -1,8 +1,6 @@
 package edu.quinnipiac.pildora.ui;
 
 import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -16,12 +14,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-
 import edu.quinnipiac.pildora.PildoraDatabaseHelper;
 import edu.quinnipiac.pildora.Prescription;
 import edu.quinnipiac.pildora.R;
+import edu.quinnipiac.pildora.testclasses.AddPrescriptionsTest;
 
-public class AddMedicationFragment extends Fragment {
+public class AddMedicationFragment extends Fragment implements View.OnClickListener {
 
     //Contain all edit texts to store prescription attributes
     private static EditText _nameEditText;
@@ -30,8 +28,8 @@ public class AddMedicationFragment extends Fragment {
     private static EditText _whenTakenEditText;
     private static Button _saveButton;//saves the prescription information
     //Test
-    private static Button _click;
-    //private static AddPrescriptionsTest testClass;
+    //private static Button _testButton;
+    private static AddPrescriptionsTest testClass;
 
     private static View _layout;
     //Prescription Object
@@ -41,136 +39,67 @@ public class AddMedicationFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState){
-        Log.d("-- ADD MED FRAGMENT ---", "-----------------------    ADD MED FRAGMENT    -------------------------");
         final View layout = inflater.inflate(R.layout.fragment_edit_add_meds, container, false);
         _layout = layout;//for some reason does not work after app is closed then opened? using getView in onStart is more reliable
         //Create and add a database and reference to MEDS db, pass to test
         SQLiteOpenHelper pildoraDBHelper = new PildoraDatabaseHelper(getLayoutInflater().getContext());
         SQLiteDatabase mydb = pildoraDBHelper.getWritableDatabase();
-        //testClass = new AddPrescriptionsTest(mydb);
+        testClass = new AddPrescriptionsTest(mydb);
         return inflater.inflate(R.layout.fragment_edit_add_meds, container, false);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        View v = getView();
-        if(_layout != null){
-            _saveButton = (Button) v.findViewById(R.id.button_savePrescription);
-            _saveButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myOnClick();
-                }
-            });
-            _click = v.findViewById(R.id.button_testClick);
-            _click.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast test = Toast.makeText(v.getContext(), "Test Button CLicked!", Toast.LENGTH_LONG);
-                    test.show();
-                }
-            });
-            Log.d("-- ADD MED FRAGMENT ---", "-----------------------    Save button initialized    -------------------------");
+        View view = getView();
+        if(view != null){
+            _saveButton = (Button) view.findViewById(R.id.button_savePrescription);
+            _saveButton.setOnClickListener(this);
             /**
              * BUG FIX - list view does not update to display medications. why? was it database related? NO
              * The bellow views were removed from the onCreateView function and moved to onStart. Unclear why this works?
              * - i have to check the lifecycle states again
              */
-            _nameEditText = (EditText) _layout.findViewById(R.id.edittext_name);
-            _dosageEditText = (EditText) _layout.findViewById(R.id.edittext_dosage);
-            _qtyEditText = (EditText) _layout.findViewById(R.id.edittext_qty);
-            _whenTakenEditText = (EditText) _layout.findViewById(R.id.edittext_whenTaken);
+            _nameEditText = (EditText) view.findViewById(R.id.edittext_name);
+            _dosageEditText = (EditText) view.findViewById(R.id.edittext_dosage);
+            _qtyEditText = (EditText) view.findViewById(R.id.edittext_qty);
+            _whenTakenEditText = (EditText) view.findViewById(R.id.edittext_whenTaken);
         }
     }
 
-    public void myOnClick() {
+    @Override
+    public void onClick(View v) {
         Log.d("------ ADD MED ------", "---------- Save Button ----------");
-        Toast saveToast = Toast.makeText(_layout.getContext(), "New Prescription Added! Check Home Screen.", Toast.LENGTH_LONG);
+        Toast saveToast = Toast.makeText(v.getContext(), "Prescription Added! Check Home Screen.", Toast.LENGTH_LONG);
         saveToast.show();
         savePrescription();
     }
 
     public void savePrescription(){
+        String name = _nameEditText.getText().toString();
+        String dosage = _dosageEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
+        String qty = _qtyEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
+        String whenTaken = _whenTakenEditText.getText().toString();
+
+        _prescription = new Prescription(name, dosage, qty, whenTaken);
+        Log.d("", "PRESCRIPTION ENTERED: " + _prescription.getName());
+
+        ContentValues medVals = new ContentValues();
+        medVals.put("NAME", name);
+        medVals.put("DOSAGE", dosage);
+        medVals.put("QTY", qty);
+        medVals.put("TIMETAKEN", whenTaken);
+
         SQLiteOpenHelper pildoraDBHelper = new PildoraDatabaseHelper(getLayoutInflater().getContext());
-        SQLiteDatabase db = pildoraDBHelper.getWritableDatabase();
-        Cursor mCursor = db.rawQuery("SELECT * FROM " + "MEDS", null);
-        Boolean rowExists;
-        if (mCursor.moveToFirst()) {
-            String name = _nameEditText.getText().toString();
-            String dosage = _dosageEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
-            String qty = _qtyEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
-            String whenTaken = _whenTakenEditText.getText().toString();
-
-            _prescription = new Prescription(name, dosage, qty, whenTaken);
-            Log.d("", "PRESCRIPTION ENTERED: " + _prescription.getName());
-
-            ContentValues medVals = new ContentValues();
-            medVals.put("NAME", name);
-            medVals.put("DOSAGE", dosage);
-            medVals.put("QTY", qty);
-            medVals.put("TIMETAKEN", whenTaken);
-
-            SQLiteOpenHelper pildoraDBHelper2 = new PildoraDatabaseHelper(getLayoutInflater().getContext());
-            try{
-                SQLiteDatabase dbb = pildoraDBHelper2.getWritableDatabase();
-                dbb.insert("MEDS", null, medVals);
-                //Log.d("-- Add Med Frag -- ", "Med Name:  " + name);
-                pildoraDBHelper.onUpgrade(dbb, dbb.getVersion(), 3);
-                dbb.close();
-            } catch (SQLiteException e){
-                Toast toast = Toast.makeText(this.getLayoutInflater().getContext(), "Database Unable to Add Prescription", Toast.LENGTH_LONG);
-                toast.show();
-            }
-            rowExists = true; //there is stuff in the database
-
-        } else { //this is an empty database
-            rowExists = false;
-            pildoraDBHelper.onUpgrade(db, 0, 1);
-            String name = _nameEditText.getText().toString();
-            String dosage = _dosageEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
-            String qty = _qtyEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
-            String whenTaken = _whenTakenEditText.getText().toString();
-
-            _prescription = new Prescription(name, dosage, qty, whenTaken);
-            Log.d("", "PRESCRIPTION ENTERED: " + _prescription.getName());
-
-            ContentValues medVals = new ContentValues();
-            medVals.put("NAME", name);
-            medVals.put("DOSAGE", dosage);
-            medVals.put("QTY", qty);
-            medVals.put("TIMETAKEN", whenTaken);
-
-            SQLiteOpenHelper pildoraDBHelper2 = new PildoraDatabaseHelper(getLayoutInflater().getContext());
-            try{
-                SQLiteDatabase dbb = pildoraDBHelper2.getWritableDatabase();
-                dbb.insert("MEDS", null, medVals);
-                //Log.d("-- Add Med Frag -- ", "Med Name:  " + name);
-                pildoraDBHelper.onUpgrade(dbb, dbb.getVersion(), 3);
-                dbb.close();
-            } catch (SQLiteException e){
-                Toast toast = Toast.makeText(this.getLayoutInflater().getContext(), "Database Unable to Add Prescription", Toast.LENGTH_LONG);
-                toast.show();
-            }
+        try{
+            SQLiteDatabase db = pildoraDBHelper.getWritableDatabase();
+            db.insert("MEDS", null, medVals);
+            pildoraDBHelper.onUpgrade(db, db.getVersion(), 3);
+            db.close();
+        } catch (SQLiteException e){
+            Toast toast = Toast.makeText(this.getLayoutInflater().getContext(), "Database Unable to Add Prescription", Toast.LENGTH_SHORT);
+            toast.show();
         }
-
-
-
-    }
-
-    public View getView(){
-        return _layout;
-    }
-
-    @Override
-    public void onAttach(Context context){
-        super.onAttach(context);
-    }
-
-    public void doTest(){
-        Toast doTestToast = Toast.makeText(_layout.getContext(), "Test Run!", Toast.LENGTH_LONG);
-        doTestToast.show();
-        //testClass.runTest();
     }
 
 
