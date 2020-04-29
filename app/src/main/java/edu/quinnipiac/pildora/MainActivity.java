@@ -1,5 +1,6 @@
 package edu.quinnipiac.pildora;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -9,16 +10,20 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.CursorAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
+import com.google.android.material.navigation.NavigationView;
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import com.google.android.material.navigation.NavigationView;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import edu.quinnipiac.pildora.ui.home.HomeFragment;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.Listener {
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.List
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //removal of floating action (little message icon)
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -83,13 +89,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.List
     @Override
     public void deleteRowID(String id) {
         _rowID = id;
-        new DeleteRowAsync().execute(_rowID);
-        Toast toast = Toast.makeText(MainActivity.this, "Prescription Deleted!", Toast.LENGTH_LONG);
-        toast.show();
+        DeleteRowAsync myFetchRequest = (DeleteRowAsync) new DeleteRowAsync().execute(_rowID);
     }
 
-    private class DeleteRowAsync extends AsyncTask<String, Void, Boolean>{
-
+    private class DeleteRowAsync extends AsyncTask<String, Void, Boolean> {
         SQLiteOpenHelper pildoraDatabaseHelper = new PildoraDatabaseHelper(MainActivity.this);
         @Override
         protected Boolean doInBackground(String... strings) {
@@ -105,13 +108,18 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.List
             }
         }
         protected void onPostExecute(Boolean success) {
-            if(!success){
+            //nothing really needed here except for successful toast message!
+            if(success){
+                Toast toast = Toast.makeText(MainActivity.this, "Prescription Deleted!", Toast.LENGTH_LONG);
+                toast.show();
+                _navController.navigate(R.id.nav_home);
+            } if(!success){
                 Toast toast = Toast.makeText(MainActivity.this, "Database Unavailable", Toast.LENGTH_LONG);
                 toast.show();
             }
         }
-
     }
+
 
 
 

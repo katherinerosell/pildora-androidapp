@@ -26,11 +26,13 @@
         android:layout_height="wrap_content"
         android:text="Save"/>
 
+        <!-- APP BREAKS AND CANNOT REACH DATABASE WHEN THIS BUTTON IS DELETED  !-->
         <Button
             android:id="@+id/button_testClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="test click"/>
+            android:text="test click"
+            android:visibility="invisible"/>
 
         <Space
             android:layout_width="match_parent"
