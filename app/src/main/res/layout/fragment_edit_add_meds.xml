@@ -18,14 +18,19 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:orientation="vertical"
-        android:padding="10dp"
-        android:id="@+id/linear_container">
+        android:padding="10dp">
 
         <Button
         android:id="@+id/button_savePrescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"/>
+
+        <Button
+            android:id="@+id/button_testClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test click"/>
 
         <Space
             android:layout_width="match_parent"

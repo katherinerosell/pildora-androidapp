@@ -30,6 +30,7 @@ public class AddMedicationFragment extends Fragment {
     private static EditText _whenTakenEditText;
     private static Button _saveButton;//saves the prescription information
     //Test
+    private static Button _click;
     //private static AddPrescriptionsTest testClass;
 
     private static View _layout;
@@ -53,12 +54,21 @@ public class AddMedicationFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        View v = getView();
         if(_layout != null){
-            _saveButton = (Button) _layout.findViewById(R.id.button_savePrescription);
+            _saveButton = (Button) v.findViewById(R.id.button_savePrescription);
             _saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     myOnClick();
+                }
+            });
+            _click = v.findViewById(R.id.button_testClick);
+            _click.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast test = Toast.makeText(v.getContext(), "Test Button CLicked!", Toast.LENGTH_LONG);
+                    test.show();
                 }
             });
             Log.d("-- ADD MED FRAGMENT ---", "-----------------------    Save button initialized    -------------------------");
@@ -116,7 +126,7 @@ public class AddMedicationFragment extends Fragment {
 
         } else { //this is an empty database
             rowExists = false;
-            pildoraDBHelper.onUpgrade(db, 0, 3);
+            pildoraDBHelper.onUpgrade(db, 0, 1);
             String name = _nameEditText.getText().toString();
             String dosage = _dosageEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
             String qty = _qtyEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
