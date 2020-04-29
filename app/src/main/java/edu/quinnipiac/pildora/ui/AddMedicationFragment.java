@@ -1,6 +1,8 @@
 package edu.quinnipiac.pildora.ui;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -75,6 +77,7 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
         savePrescription();
     }
 
+
     public void savePrescription(){
         String name = _nameEditText.getText().toString();
         String dosage = _dosageEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
@@ -101,6 +104,5 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
             toast.show();
         }
     }
-
 
 }
