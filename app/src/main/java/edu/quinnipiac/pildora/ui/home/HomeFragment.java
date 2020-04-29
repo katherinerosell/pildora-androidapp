@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +21,10 @@ import androidx.fragment.app.Fragment;
 import edu.quinnipiac.pildora.PildoraDatabaseHelper;
 import edu.quinnipiac.pildora.R;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements AdapterView.OnItemClickListener{
     public static interface Listener{
         void deleteRowID(String id);
     }
-
     private SQLiteDatabase db;
     private Cursor cursor;
     private View _layout;
@@ -51,7 +49,7 @@ public class HomeFragment extends Fragment {
                     0);
             listMeds.setAdapter(myListAdapter);
         } catch(SQLiteException err){
-            Toast toast = Toast.makeText(layout.getContext(), "Database Unreachable", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(layout.getContext(), "Database Unreachable", Toast.LENGTH_SHORT);
             toast.show();
         }
         _layout = layout;
@@ -71,32 +69,30 @@ public class HomeFragment extends Fragment {
         Cursor newCursor = db.query("MEDS", new String[]{"_id", "NAME", "DOSAGE", "QTY", "TIMETAKEN"}, null, null, null, null, null);
         //if the database is empty, meaning there is nothing in the first row, set the hint text to display the hint
         addNewHint = getView().findViewById(R.id.text_hint);
-        if(cursor.moveToFirst()==true){addNewHint.setText("");}
-        else if(cursor.moveToFirst()==false){addNewHint.setText("No Prescriptions Added :( Click the menu at the TOP-LEFT to add a new one!");}
+        if(cursor.moveToFirst()){addNewHint.setText("");}
+        else if(!cursor.moveToFirst()){addNewHint.setText("No Prescriptions Added :( Click the menu at the TOP-LEFT to add a new one!");}
         //update list view with new cursor; refreshing the cursor
         ListView listMeds = (ListView) _layout.findViewById(R.id.list_prescriptions);
         CursorAdapter cursorAdapter = (CursorAdapter) listMeds.getAdapter();
         cursorAdapter.changeCursor(newCursor);
         cursor = newCursor;
         //right now, just delete the prescription clicked from the view and db for debugging
-        listMeds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("ListItemClick :   ", "" + id);//id is relative to the database's row number!
-                int keyID = (int) id;
-                String keyIDString = Integer.toString(keyID);
-                _listener.deleteRowID(keyIDString);
-                refresh();
-            }
-        });
+        listMeds.setOnItemClickListener(this);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
+        int keyID = (int) id;
+        String keyIDString = Integer.toString(keyID);
+        _listener.deleteRowID(keyIDString);
+        refresh();
+    }
 
     public void refresh() {
-        //refresh the cursor to update list view, but it isn't really needed since onStart covers this
+        //refresh the cursor to update list view
         Cursor newCursor = db.query("MEDS", new String[]{"_id", "NAME", "DOSAGE", "QTY", "TIMETAKEN"}, null, null, null, null, null);
         ListView listMeds = (ListView) _layout.findViewById(R.id.list_prescriptions);
-        CursorAdapter cursorAdapter = (CursorAdapter) listMeds.getAdapter();
+        SimpleCursorAdapter cursorAdapter = (SimpleCursorAdapter) listMeds.getAdapter();
         cursorAdapter.changeCursor(newCursor);
         cursor = newCursor;
     }
@@ -104,8 +100,6 @@ public class HomeFragment extends Fragment {
     /**
      * onAttach
      * Called when the fragment gets attached to the activity.
-     * Because Activity class is a subclass of Context we can have this.
-     * Resolves null Listener
      * @param context
      */
     @Override
