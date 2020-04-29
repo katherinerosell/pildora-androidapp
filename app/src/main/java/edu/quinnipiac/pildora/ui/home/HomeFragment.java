@@ -1,5 +1,6 @@
 package edu.quinnipiac.pildora.ui.home;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -10,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -23,22 +23,19 @@ import edu.quinnipiac.pildora.PildoraDatabaseHelper;
 import edu.quinnipiac.pildora.R;
 
 public class HomeFragment extends Fragment {
+    public static interface Listener{
+        void deleteRowID(String id);
+    }
 
     private SQLiteDatabase db;
     private Cursor cursor;
     private View _layout;
     private static TextView addNewHint;
+    private static Listener _listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View layout = inflater.inflate(R.layout.fragment_home, container, false);
-        Button addMed = layout.findViewById(R.id.button_addMed);
-        addMed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refresh();
-            }
-        });
 
         //this section connects the list view to the SimpleCursorAdapter, loading all the attributes of the prescription into a custom list view, list_4items.xml
         ListView listMeds = layout.findViewById(R.id.list_prescriptions);
@@ -66,7 +63,6 @@ public class HomeFragment extends Fragment {
         super.onDestroy();
         cursor.close();
         db.close();
-        //refresh();
     }
 
     @Override
@@ -87,18 +83,35 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("ListItemClick :   ", "" + id);//id is relative to the database's row number!
+                int keyID = (int) id;
+                String keyIDString = Integer.toString(keyID);
+                _listener.deleteRowID(keyIDString);
+                refresh();
             }
         });
     }
 
+
     public void refresh() {
-        //testClass.runTest();
         //refresh the cursor to update list view, but it isn't really needed since onStart covers this
         Cursor newCursor = db.query("MEDS", new String[]{"_id", "NAME", "DOSAGE", "QTY", "TIMETAKEN"}, null, null, null, null, null);
         ListView listMeds = (ListView) _layout.findViewById(R.id.list_prescriptions);
         CursorAdapter cursorAdapter = (CursorAdapter) listMeds.getAdapter();
         cursorAdapter.changeCursor(newCursor);
         cursor = newCursor;
+    }
+
+    /**
+     * onAttach
+     * Called when the fragment gets attached to the activity.
+     * Because Activity class is a subclass of Context we can have this.
+     * Resolves null Listener
+     * @param context
+     */
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        this._listener = (Listener)context;
     }
 
 

@@ -39,6 +39,7 @@ public class AddMedicationFragmentTest {
 
         //onView(withId(R.id.nav_host_fragment)).check(matches((isDisplayed())));
         //onView(withId(R.id.med_name)).check(matches((isDisplayed())));
+
         onView(withId(R.id.med_name)).perform(typeText("Hocus Pocus Motrin"));
         onView(withId(R.id.med_dosage)).perform(typeText("6000"));
         onView(withId(R.id.med_qty)).perform(typeText("1"));
@@ -48,13 +49,12 @@ public class AddMedicationFragmentTest {
 
     @Test
     public void onClick() {
-        //onView(withId(R.id.med_name)).perform(typeText("Hocus Pocus Motrin"));
-
 
     }
 
     @Test
     public void savePrescription() {
+
     }
 
 }

@@ -7,25 +7,16 @@
     tools:context=".ui.home.HomeFragment"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button_addMed"
-        android:text="refresh list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="12dp"
-        android:layout_gravity="right"
-        />
-
     <TextView
         android:id="@+id/text_hint"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="4dp"
+        android:layout_marginTop="30dp"
         android:text="No Prescriptions Added :( Click the menu at the TOP-LEFT to add a new one!"
         android:textAlignment="center"
-        android:textSize="12dp" />
+        android:textSize="16dp" />
 
     <ListView
         android:id="@+id/list_prescriptions"
