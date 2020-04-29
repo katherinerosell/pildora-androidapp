@@ -21,7 +21,7 @@ import edu.quinnipiac.pildora.PildoraDatabaseHelper;
 import edu.quinnipiac.pildora.Prescription;
 import edu.quinnipiac.pildora.R;
 
-public class AddMedicationFragment extends Fragment implements View.OnClickListener {
+public class AddMedicationFragment extends Fragment {
 
     //Contain all edit texts to store prescription attributes
     private static EditText _nameEditText;
@@ -55,7 +55,12 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
         super.onStart();
         if(_layout != null){
             _saveButton = (Button) _layout.findViewById(R.id.button_savePrescription);
-            _saveButton.setOnClickListener(this);
+            _saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myOnClick();
+                }
+            });
             Log.d("-- ADD MED FRAGMENT ---", "-----------------------    Save button initialized    -------------------------");
             /**
              * BUG FIX - list view does not update to display medications. why? was it database related? NO
@@ -69,17 +74,9 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    public void doTest(){
-        Toast doTestToast = Toast.makeText(_layout.getContext(), "Test Run!", Toast.LENGTH_LONG);
-        doTestToast.show();
-        //testClass.runTest();
-    }
-
-
-    @Override
-    public void onClick(View v) {
+    public void myOnClick() {
         Log.d("------ ADD MED ------", "---------- Save Button ----------");
-        Toast saveToast = Toast.makeText(v.getContext(), "New Prescription Added! Check Home Screen.", Toast.LENGTH_LONG);
+        Toast saveToast = Toast.makeText(_layout.getContext(), "New Prescription Added! Check Home Screen.", Toast.LENGTH_LONG);
         saveToast.show();
         savePrescription();
     }
@@ -159,5 +156,12 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
     public void onAttach(Context context){
         super.onAttach(context);
     }
+
+    public void doTest(){
+        Toast doTestToast = Toast.makeText(_layout.getContext(), "Test Run!", Toast.LENGTH_LONG);
+        doTestToast.show();
+        //testClass.runTest();
+    }
+
 
 }
