@@ -1,7 +1,6 @@
 package edu.quinnipiac.pildora.ui;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -21,7 +20,7 @@ import edu.quinnipiac.pildora.PildoraDatabaseHelper;
 import edu.quinnipiac.pildora.Prescription;
 import edu.quinnipiac.pildora.R;
 
-public class AddMedicationFragment extends Fragment {
+public class AddMedicationFragment extends Fragment implements View.OnClickListener {
 
     //Contain all edit texts to store prescription attributes
     private static EditText _nameEditText;
@@ -54,29 +53,11 @@ public class AddMedicationFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        View v = getView();
+        View view = getView();
         if(_layout != null){
-            _saveButton = (Button) v.findViewById(R.id.button_savePrescription);
-            _saveButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myOnClick();
-                }
-            });
-            _click = v.findViewById(R.id.button_testClick);
-            _click.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast test = Toast.makeText(v.getContext(), "Test Button CLicked!", Toast.LENGTH_LONG);
-                    test.show();
-                }
-            });
+           _saveButton = view.findViewById(R.id.button_savePrescription);
+           _saveButton.setOnClickListener(this);
             Log.d("-- ADD MED FRAGMENT ---", "-----------------------    Save button initialized    -------------------------");
-            /**
-             * BUG FIX - list view does not update to display medications. why? was it database related? NO
-             * The bellow views were removed from the onCreateView function and moved to onStart. Unclear why this works?
-             * - i have to check the lifecycle states again
-             */
             _nameEditText = (EditText) _layout.findViewById(R.id.edittext_name);
             _dosageEditText = (EditText) _layout.findViewById(R.id.edittext_dosage);
             _qtyEditText = (EditText) _layout.findViewById(R.id.edittext_qty);
@@ -84,12 +65,14 @@ public class AddMedicationFragment extends Fragment {
         }
     }
 
-    public void myOnClick() {
+    @Override
+    public void onClick(View v) {
         Log.d("------ ADD MED ------", "---------- Save Button ----------");
         Toast saveToast = Toast.makeText(_layout.getContext(), "New Prescription Added! Check Home Screen.", Toast.LENGTH_LONG);
         saveToast.show();
         savePrescription();
     }
+
 
     public void savePrescription(){
         SQLiteOpenHelper pildoraDBHelper = new PildoraDatabaseHelper(getLayoutInflater().getContext());
@@ -162,16 +145,10 @@ public class AddMedicationFragment extends Fragment {
         return _layout;
     }
 
-    @Override
-    public void onAttach(Context context){
-        super.onAttach(context);
-    }
-
     public void doTest(){
         Toast doTestToast = Toast.makeText(_layout.getContext(), "Test Run!", Toast.LENGTH_LONG);
         doTestToast.show();
         //testClass.runTest();
     }
-
 
 }
