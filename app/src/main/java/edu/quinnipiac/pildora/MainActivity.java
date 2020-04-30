@@ -1,6 +1,5 @@
 package edu.quinnipiac.pildora;
 
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -10,19 +9,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.navigation.NavigationView;
 
 import edu.quinnipiac.pildora.ui.home.HomeFragment;
 
@@ -107,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.List
                 return false;
             }
         }
+
         protected void onPostExecute(Boolean success) {
             //nothing really needed here except for successful toast message!
             if(success){
@@ -119,8 +117,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.List
             }
         }
     }
-
-
 
 
 }
