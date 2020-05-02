@@ -20,6 +20,12 @@ import edu.quinnipiac.pildora.Prescription;
 import edu.quinnipiac.pildora.R;
 import edu.quinnipiac.pildora.testclasses.AddPrescriptionsTest;
 
+/**
+ * AddMedicationFragment
+ * Fragment responsible for saving prescription data in the database.
+ * @Author: Katherine Rosell
+ * @Date: 4/28/2020
+ */
 public class AddMedicationFragment extends Fragment implements View.OnClickListener {
 
     //Contain all edit texts to store prescription attributes
@@ -83,8 +89,8 @@ public class AddMedicationFragment extends Fragment implements View.OnClickListe
 
     public void savePrescription(){
         String name = _nameEditText.getText().toString();
-        String dosage = _dosageEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
-        String qty = _qtyEditText.getText().toString();//converting text to int... hopefully that won't break with decimals
+        String dosage = _dosageEditText.getText().toString();
+        String qty = _qtyEditText.getText().toString();
         String whenTaken = _whenTakenEditText.getText().toString();
 
         _prescription = new Prescription(name, dosage, qty, whenTaken);

@@ -10,6 +10,13 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * PrescriptionTest
+ * This simple JUnit test checks if the attributes of a prescription are stored and retrieved
+ * correctly. It's very simple and works!
+ * @Author: Katherine Rosell
+ * @Date: 4/28/2020
+ */
 @RunWith(AndroidJUnit4.class)
 public class PrescriptionTest {
 

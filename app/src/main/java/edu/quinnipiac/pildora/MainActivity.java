@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -18,11 +17,17 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.google.android.material.navigation.NavigationView;
-
 import edu.quinnipiac.pildora.ui.home.HomeFragment;
 
+/**
+ * Main Activity
+ *  The MainActivity is responsible for setting up the Navigation Components to connect to the
+ *  other screens. The MainActivity also is responsible for running the AsyncTask that deletes
+ *  a prescription from the list view and database.
+ * @Author: Katherine Rosell
+ * @Date: 4/12/2020
+ */
 public class MainActivity extends AppCompatActivity implements HomeFragment.Listener {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -66,22 +71,21 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.List
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         ViewGroup view = (ViewGroup) findViewById(android.R.id.content);
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            //navController.navigate(R.id.nav_settings);
-            return true;
-        }
         if(id == R.id.action_help){
             _navController.navigate(R.id.nav_help);//use nav controller to get to/display help fragment
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * deleteRowID
+     * Using the listener interface from the HomeFragment, the MainActivity uses
+     * the id from the list item and deletes the prescription from that row in the database.
+     * @param id
+     */
 
     @Override
     public void deleteRowID(String id) {
@@ -105,12 +109,18 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.List
             }
         }
 
+        /**
+         * Once the doInBackground() completes, the navigation controller jumps to the HomeFragment again.
+         * This triggers the onStart method that refreshes the list view.
+         * @param success
+         */
+
         protected void onPostExecute(Boolean success) {
             //nothing really needed here except for successful toast message!
             if(success){
                 Toast toast = Toast.makeText(MainActivity.this, "Prescription Deleted!", Toast.LENGTH_LONG);
                 toast.show();
-                _navController.navigate(R.id.nav_home);
+                _navController.navigate(R.id.nav_home);//here is where the view 'reloads'
             } if(!success){
                 Toast toast = Toast.makeText(MainActivity.this, "Database Unavailable", Toast.LENGTH_LONG);
                 toast.show();

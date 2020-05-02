@@ -14,6 +14,18 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 
+/**
+ * AddMeciationFragmentTest
+ * NOT FINISHED
+ * Unfortunately, this test class does not run correctly. Because the fragment is not made directly
+ * in the MainActivity, the test is not able to access the EditText objects from the view. This has to
+ * do with the Navigation Components that actually navigate to and create the fragments. I was unfortunately
+ * unable to find a solution that accesses a fragment from a navigation component but have learned that
+ * this is an obstacle I will avoid in the future.
+ * @Author: Katherine Rosell
+ * @Date: 4/28/2020
+ */
+
 @RunWith(AndroidJUnit4.class)
 public class AddMedicationFragmentTest {
 

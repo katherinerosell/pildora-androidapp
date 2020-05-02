@@ -22,6 +22,14 @@ import androidx.fragment.app.Fragment;
 import edu.quinnipiac.pildora.PildoraDatabaseHelper;
 import edu.quinnipiac.pildora.R;
 
+/**
+ * HomeFragment
+ * The Home Screen essentially that is responsible for displaying the list view of prescriptions
+ * and letting the MainActivity know which list item is clicked and should be deleted.
+ * @Author: Katherine Rosell
+ * @Date: 4/28/2020
+ */
+
 public class HomeFragment extends Fragment implements AdapterView.OnItemClickListener{
     public static interface Listener{
         void deleteRowID(String id);
@@ -64,6 +72,11 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         db.close();
     }
 
+    /**
+     * onStart()
+     * Called when fragment starts and refreshes the list view by connecting a new cursor and putting it in
+     * an adapter.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -82,15 +95,27 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         listMeds.setOnItemClickListener(this);
     }
 
+    /**
+     * When an item in the list view is clicked, its id corresponds to its database's row number _id
+     * Once an item is clicked, the listener's method deleteRowID(int) is called and the MainActivity
+     * begins the AsyncTask
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
         Log.d("ListItemClick :   ", "" + id);//id is relative to the database's row number!
         int keyID = (int) id;
         String keyIDString = Integer.toString(keyID);
         _listener.deleteRowID(keyIDString);
-        refresh();
     }
 
+    /**
+     * Refresh method wound up being unused, but onStart() uses similar components to
+     * reload the list view.
+     */
     public void refresh() {
         Log.d("HomeFragment ", "*******          refreshing list view...           ********");
         //refresh the cursor to update list view

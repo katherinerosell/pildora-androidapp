@@ -23,8 +23,8 @@ import edu.quinnipiac.pildora.R;
  * that its database has been updated!
  * If the list view displays the below prescriptions, the HomeFragment accesses and reads the database properly,
  * and refreshes the cursor correctly.
- * Author: Katherine Rosell
- * Date: 4/23/2020
+ * @Author: Katherine Rosell
+ * @Date: 4/23/2020
  */
 
 public class AddPrescriptionsTest extends Fragment {

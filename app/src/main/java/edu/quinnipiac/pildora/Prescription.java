@@ -1,5 +1,12 @@
 package edu.quinnipiac.pildora;
 
+/**
+ * Prescription
+ * the prescription object contains a name, dosage, quantity, and when to take. When making a Prescription
+ * object makes it easy to access and set the attributes.
+ * @Author: Katherine Rosell
+ * @Date: 4/19/2020
+ */
 public class Prescription {
 
     private String _name;

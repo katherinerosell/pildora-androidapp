@@ -10,6 +10,8 @@ import android.util.Log;
  * PildoraDatabaseHelper
  * Using SQLiteOpenHelper, this class uses OOP features to store prescriptions and their attributes into a
  * database.
+ * @Author: Katherine Rosell
+ * @Date: 4/20/2020
  */
 
 public class PildoraDatabaseHelper extends SQLiteOpenHelper {
@@ -47,12 +49,6 @@ public class PildoraDatabaseHelper extends SQLiteOpenHelper {
         if(oldVersion < 1){//on first loading in
             db.execSQL("CREATE TABLE MEDS (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + "NAME TEXT, " + "DOSAGE TEXT, " + "QTY TEXT, " + "TIMETAKEN TEXT);");
-            //insertPrescription(db, "Medicine A", "0.50", "2", "Taken every morning.");
-            //insertPrescription(db, "Medicine B", "0.20", "1", "Taken every 4 hours for a 3 days.");
-            //insertPrescription(db, "Medicine C", "0.30", "2", "Take x2 a day for 3 weeks.");
-        }
-        else if(oldVersion == 2){
-            //insertPrescription(db, "Medicine D", 0.40, 1, "Take 1 a day for 3 weeks.");
         }
     }
 
